@@ -5,3 +5,11 @@ application.linux64
 application.windows32
 application.windows64
 application.macosx
+
+
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
