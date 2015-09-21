@@ -7,7 +7,7 @@ class Tile {
   Map map;                  // The map the tile belongs to
   boolean is_goal = false;  // Whether or not the tile is a goal  
   boolean is_wall = false;  // Whether or not the tile is a wall
-  boolean occupied = false; // Occupation by a robot
+  boolean is_occupied = false; // Occupation by a robot
   
   float xSize, ySize;
   float dispX, dispY;
@@ -57,9 +57,22 @@ class Tile {
 }
 
 class Robot {
-  Tile loc;  // The tile the robot is on
+  Tile currTile;  // The tile the robot is on
+  Map currMap; // The map the robot is on
   
-
+  Point getGPS() {
+    return new Point(this.currTile.xPos, this.currTile.yPos);
+  }
+  
+  boolean senseIfBlocked() {
+    Tile[] neighbors = this.currMap.getTileNeighbors(this.currTile);
+    switch (this.orientation) {
+      case 0: return neighbors[0] != null && !neighbors[0].is_wall && !neighbors[0].is_occupied;
+      case 1: return neighbors[1] != null && !neighbors[1].is_wall && !neighbors[1].is_occupied;
+      case 2: return neighbors[2] != null && !neighbors[2].is_wall && !neighbors[2].is_occupied;
+      case 3: return neighbors[3] != null && !neighbors[3].is_wall && !neighbors[3].is_occupied;
+    }
+  }
 }
 
 class Map {
@@ -151,9 +164,9 @@ class Map {
     }
   }
 
-  // Returns an array of tiles adjacent to Tile t in the form [up, down, left, right]
+  // Returns an array of tiles adjacent to Tile t in the form [down, right, up, left]
   Tile[] getTileNeighbors(Tile t) {
-    Tile[] neighbors = {getAboveTile(t), getBelowTile(t), getLeftTile(t), getRightTile(t)};
+    Tile[] neighbors = {getBelowTile(t), getRightTile(t), getAboveTile(t), getLeftTile(t)};
     return neighbors;
   }
   
