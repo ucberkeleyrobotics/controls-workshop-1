@@ -21,8 +21,6 @@ class Tile {
     
     dispX = mapX+(this.xPos*xSize);
     dispY = mapY+((this.yPos*ySize));
-    //dispY = height-mapY-((this.yPos+1)*ySize);
-    //println(dispY);
   }
   
   int getX () {
@@ -35,30 +33,25 @@ class Tile {
   
   void setWall (boolean e) {
     this.is_wall = e;
-    println("setting wall");
     fill(wallColor);
     rect(dispX, dispY, xSize, ySize);
     fill(baseColor);
-    println(dispX);
-    println(dispY);
-    println();
   }
   
   void setGoal (boolean e) {
     this.is_goal = e;
-    println("setting goal");
     fill(goalColor);
     rect(dispX, dispY, xSize, ySize);
     fill(baseColor);
-    println(dispX);
-    println(dispY);
-    println();
   }
 }
 
 class Robot {
   Tile currTile;  // The tile the robot is on
   Map currMap; // The map the robot is on
+  int id;
+  int facing = 0;
+  color paint;
   
   Point getGPS() {
     return new Point(this.currTile.xPos, this.currTile.yPos);
@@ -66,12 +59,31 @@ class Robot {
   
   boolean senseIfBlocked() {
     Tile[] neighbors = this.currMap.getTileNeighbors(this.currTile);
-    switch (this.orientation) {
-      case 0: return neighbors[0] != null && !neighbors[0].is_wall && !neighbors[0].is_occupied;
-      case 1: return neighbors[1] != null && !neighbors[1].is_wall && !neighbors[1].is_occupied;
-      case 2: return neighbors[2] != null && !neighbors[2].is_wall && !neighbors[2].is_occupied;
-      case 3: return neighbors[3] != null && !neighbors[3].is_wall && !neighbors[3].is_occupied;
+    switch (this.facing) {
+      case 0: return (neighbors[0] == null || neighbors[0].is_wall || neighbors[0].is_occupied);
+      case 1: return (neighbors[1] == null || neighbors[1].is_wall || neighbors[1].is_occupied);
+      case 2: return (neighbors[2] == null || neighbors[2].is_wall || neighbors[2].is_occupied);
+      case 3: return (neighbors[3] == null || neighbors[3].is_wall || neighbors[3].is_occupied);
     }
+    return false;
+  }
+  
+  void goForward() {
+    if (senseIfBlocked()) {
+      this.currMap.removeRobot(this.id); // You broke your robot!
+    } else {
+      this.currTile.is_occupied = false;
+      this.currTile = this.currMap.getTileNeighbors(this.currTile)[this.facing];
+      this.currTile.is_occupied = true;
+    }
+  }
+  
+  void turnLeft() {
+    this.facing = (this.facing + 1) % 4;
+  }
+  
+  void turnRight() {
+    this.facing = (this.facing + 3) % 4;
   }
 }
 
@@ -99,11 +111,9 @@ class Map {
         this.tileArray[xc][yc] = t;
         rect(mapX+(xc*tileX), mapY+(yc*tileY), tileX, tileY);
         if (myWalls.contains(new Point(xc, yc))) {
-          println("Point(" + xc + ", " + yc + ") is in myWalls");
           setTileWall(t, true);
         }
         if (myGoals.contains(new Point(xc, yc))) {
-          println("Point(" + xc + ", " + yc + ") is in myGoals");
           setTileGoal(t, true);
         }
       }
@@ -183,15 +193,22 @@ class Map {
   // Returns the specified robot
  // Robot getRobot() {
  // }
+  void removeRobot (int id) {
+  }
   
   /* END ROBOT METHODS */
   
   // Returns true if a robot is occupying a goal tile
-  boolean success () {
+  boolean endRun () {
     for (Tile t : goalTiles) {
-      if (t.occupied) {
+      if (t.is_occupied) {
+        println("Your robot reached the goal!");
         return true;
       }
+    }
+    if (robots.size() == 0) {
+      println("All your robots crashed :(");
+      return true;
     }
     return false;
   }  
