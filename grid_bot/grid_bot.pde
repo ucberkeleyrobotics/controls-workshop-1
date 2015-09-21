@@ -8,19 +8,16 @@ void draw() {
 }
 
 class Tile {
-  int xPos, yPos;  // Coordinates of the tile
-  boolean is_wall; // Whether or not the tile is a wall
-  boolean is_goal; // Whether or not the tile is a goal
-  Map map;         // The map the tile belongs to
-  
+  int xPos, yPos;           // Coordinates of the tile
+  Map map;                  // The map the tile belongs to
+  boolean is_goal = false;  // Whether or not the tile is a goal  
+  boolean is_wall = false;  // Whether or not the tile is a wall
   boolean occupied = false; // Occupation by a robot
   
-  Tile (int x, int y, Map m, boolean wall, boolean goal) {
+  Tile (int x, int y, Map m) {
     xPos = x;
     yPos = y;
     map = m;
-    is_wall = wall;
-    is_goal = goal;
   }
   
   int getX () {
@@ -29,6 +26,10 @@ class Tile {
   
   int getY () {
     return this.yPos;
+  }
+  
+  void setWall (boolean e) {
+    this.is_wall = e;
   }
   
   void setGoal (boolean e) {
@@ -56,14 +57,21 @@ class Map {
 
     tileArray = new Tile[xSize][ySize];
     robots = new Robot[numRobots];
+    
+    // Fill up the map with empty tiles
+    for (int x = 0; x < xSize; x++) {
+      for (int y = 0; y < ySize; y++) {
+        this.tileArray[x][y] = new Tile(x, y, this);
+      }
+    }
   }
   
   /* BEGIN TILE METHODS */
-
-  // Add a tile with the given parameters to the map
-  void addTile (int x, int y, boolean wall, boolean goal) {
-    tileArray[x-1][y-1] = new Tile(x, y, this, wall, goal);
-  }
+  
+  // Sets tile t's is_wall value to boolean e
+  void setTileWall (Tile t, boolean e) {
+    t.setWall(e);
+  }    
   
   // Sets Tile t's goal value to boolean e
   void setTileGoal (Tile t, boolean e) {
