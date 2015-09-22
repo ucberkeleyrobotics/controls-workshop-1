@@ -1,7 +1,3 @@
-
-
-
-
 class Map {
   float tileX, tileY; // Tile dimensions
 

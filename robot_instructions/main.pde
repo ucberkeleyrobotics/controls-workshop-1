@@ -37,13 +37,13 @@ void setup () {
   wallColor = color(117);
     
   // Select layout parameters here
-  loadLayout();
+  chooseLayout();
   
   myWalls = wallSelect;
   myGoals = goalSelect;
   
   m = new Map(xySelect.x, xySelect.y, myWalls, myGoals);
-  r = new Robot(1, 0, 9, m);
+  r = new Robot(1, 6, 6, m);
   r.facing = 2;
 }
 

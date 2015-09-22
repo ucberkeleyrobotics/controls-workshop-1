@@ -48,23 +48,21 @@ class Robot {
       this.currTile = this.currMap.getTileNeighbors(this.currTile)[this.facing];
       this.currTile.setOccupied(true, this);
     }
-    //redraw();
-    //delay(executionSpeed);
+    delay(executionSpeed);
+    redraw();
   }
   
   void turnLeft() {
     this.facing = (this.facing + 1) % 4;
     this.currTile.setOccupied(this.currTile.isOccupied, this);
-    //redraw();
-    //delay(executionSpeed);
+    delay(executionSpeed);
+    redraw();
   }
   
   void turnRight() {
     this.facing = (this.facing + 3) % 4;
     this.currTile.setOccupied(this.currTile.isOccupied, this);
-    //redraw();
-    //delay(executionSpeed);
+    delay(executionSpeed);
+    redraw();
   }
-  
-
 }
