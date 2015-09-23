@@ -6,7 +6,7 @@ import java.awt.Point;
     while (millis() - time <= delay);
   }
 
-int executionSpeed = 1000; // 0 is the fastest
+int executionSpeed = 750; // 0 is the fastest
 
 Point xySelect; // Add dimension checks later
 ArrayList<Point> wallSelect;
@@ -43,10 +43,37 @@ void setup () {
   myGoals = goalSelect;
   
   m = new Map(xySelect.x, xySelect.y, myWalls, myGoals);
-  r = new Robot(1, 6, 6, m);
-  r.facing = 2;
+  r = new Robot(1, 1, 1, m);
+  //r.facing = 2;
+  noLoop();
 }
 
 void draw () {
-  robotInstructions();
+  for(int i = 0; i < m.xSize; i++) {
+    for(int j = 0; j < m.ySize; j++) {
+      drawTile(r, m.tileArray[i][j]);
+    }
+  }
+}
+
+void mousePressed() {
+ robotInstructions();
+ m.endRun();
+}
+
+void drawTile(Robot r, Tile t) {
+  if (t.isOccupied) {
+    t.drawRobot(r);
+  }
+  else {
+      if (t.isGoal) {
+       fill(goalColor);
+      }
+      if (t.isWall) {
+        fill(wallColor);
+      }
+      rect(t.dispX, t.dispY, t.xSize, t.ySize);
+      fill(baseColor);
+  }
+  redraw();
 }

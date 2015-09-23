@@ -16,12 +16,16 @@ void loadLayout(int layoutChoice) {
   
   if(layoutChoice == 0) {
     // LAYOUT 0
-    xy = new Point (10, 10);
+    xy = new Point (8, 8);
     walls = new ArrayList<Point>();
     goals = new ArrayList<Point>();
     
-    addStrip(walls, 0, 2, 2, 2);
-    goals.add(new Point (2,2));
+    addStrip(walls, 0, 0, 0, 7);
+    addStrip(walls, 1, 0, 7, 0);
+    addStrip(walls, 7, 1, 7, 6);
+    addStrip(walls, 1, 7, 7, 7);
+    //addStrip(walls, 1, 9, 9, 9);
+    goals.add(new Point (6,6));
 
   }
   else if(layoutChoice == 1) {
@@ -43,4 +47,5 @@ void loadLayout(int layoutChoice) {
     xySelect = xy;
     wallSelect = walls;
     goalSelect = goals;
+    redraw();
 }

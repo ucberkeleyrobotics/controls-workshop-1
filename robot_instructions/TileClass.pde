@@ -55,6 +55,18 @@ class Tile {
         println("Your robot reached the goal!");
         this.map.endRun();
       }
+      this.drawRobot(r);
+    } else {
+      if (this.isGoal) {
+       fill(goalColor);
+      }
+      rect(dispX, dispY, xSize, ySize);
+      fill(baseColor);
+    }
+    redraw();
+  }
+  
+  void drawRobot(Robot r) {
       fill(r.paint);
       rect(dispX, dispY, xSize, ySize);
       fill(baseColor);
@@ -72,12 +84,5 @@ class Tile {
          triangle(dispX, dispY+ySize/2, dispX+xSize, dispY, dispX+xSize, dispY+ySize);
          break;
       }
-    } else {
-      if (this.isGoal) {
-       fill(goalColor);
-      }
-      rect(dispX, dispY, xSize, ySize);
-      fill(baseColor);
-    }
   }
 }
