@@ -23,7 +23,7 @@ color goalColor;
 color wallColor;
 
 Map m;
-Robot r;
+Robot steve;
 
 void settings () {
   size(700, 700);
@@ -43,7 +43,7 @@ void setup () {
   myGoals = goalSelect;
   
   m = new Map(xySelect.x, xySelect.y, myWalls, myGoals);
-  r = new Robot(1, 1, 1, m);
+  steve = new Robot(1, 1, 1, m);
   //r.facing = 2;
   noLoop();
 }
@@ -51,7 +51,7 @@ void setup () {
 void draw () {
   for(int i = 0; i < m.xSize; i++) {
     for(int j = 0; j < m.ySize; j++) {
-      drawTile(r, m.tileArray[i][j]);
+      drawTile(steve, m.tileArray[i][j]);
     }
   }
 }

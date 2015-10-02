@@ -5,5 +5,5 @@ void chooseLayout() {
 }
 void robotInstructions () {
   /* Code your robot's behavior in here */
-  r.turnLeft();
+  steve.turnLeft();
 }
