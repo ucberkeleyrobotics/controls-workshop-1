@@ -3,7 +3,7 @@
 
 Imagine that we've created a robot named "robert", who is facing east at position (0, 0). There happens to be a wall at position (4, 6).
 
-Your own robot, named "r", will always start at position (0, 0), facing north.
+Your own robot, named "steve", will always start at position (0, 0), facing north.
 
 ## goForward()
 This tells the robot to move forward. Be careful though, because it's fragile and will break if it tries to go into a wall or out of the map!
