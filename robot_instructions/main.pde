@@ -26,7 +26,7 @@ Map m;
 Robot r;
 
 void settings () {
-  size(760, 760);
+  size(400, 400);
 }
  
 void setup () { 

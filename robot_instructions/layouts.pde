@@ -35,7 +35,7 @@ void loadLayout(int layoutChoice) {
     
     goals.add(new Point (5,5));
   }
-  else if(layoutChoice == 2){
+  else if(layoutChoice == 4){
     xy = new Point(15,15);
     walls = new ArrayList<Point>();
     goals = new ArrayList<Point>();
@@ -53,6 +53,26 @@ void loadLayout(int layoutChoice) {
     addStrip(walls,1,11+shift3,10,11+shift3);
     goals.add(new Point (1,13));
   }
+ else if(layoutChoice == 2){
+    xy = new Point(5,5);
+    walls = new ArrayList<Point>();
+    goals = new ArrayList<Point>();
+    
+    addStrip(walls,0,0,0,4);
+    addStrip(walls,0,0,4,0);
+    addStrip(walls,4,0,4,4);
+    addStrip(walls,0,4,4,4);
+    
+    int rand1 = int(random(1,4));
+    int rand2 = int(random(1,4));
+    while(rand1 == rand2){
+      rand2 = int(random(1,4));
+    }
+    addStrip(walls,2,rand1,2,rand1);
+    addStrip(walls,2,rand2,2,rand2);
+    
+    goals.add(new Point(3,3));
+  }
   else if(layoutChoice == 3){
     xy = new Point(11,11);
     walls = new ArrayList<Point>();
@@ -66,7 +86,7 @@ void loadLayout(int layoutChoice) {
     addStrip(walls,6,1,9,8);
     goals.add(new Point (9,9));
   }
-  else if(layoutChoice == 4){
+  else if(layoutChoice == 5){
     xy = new Point(4,4);
     walls = new ArrayList<Point>();
     goals = new ArrayList<Point>();
@@ -75,17 +95,6 @@ void loadLayout(int layoutChoice) {
     addStrip(walls,0,0,3,0);
     addStrip(walls,3,0,3,3);
     addStrip(walls,0,3,3,3);
-  }
-  else if(layoutChoice == 5){
-    xy = new Point(20,20);
-    walls = new ArrayList<Point>();
-    goals = new ArrayList<Point>();
-    
-    addStrip(walls,0,0,0,19);
-    addStrip(walls,0,0,19,0);
-    addStrip(walls,19,0,19,19);
-    addStrip(walls,0,19,19,19);
-    goals.add(new Point(13,17));
   }
   else if(layoutChoice == 6){
     xy = new Point(20,20);
@@ -96,15 +105,34 @@ void loadLayout(int layoutChoice) {
     addStrip(walls,0,0,19,0);
     addStrip(walls,19,0,19,19);
     addStrip(walls,0,19,19,19);
+    goals.add(new Point(13,17));
+  }
+  else if(layoutChoice == 7){
+    xy = new Point(20,20);
+    walls = new ArrayList<Point>();
+    goals = new ArrayList<Point>();
     
-    for (int i = 1; i <= 50; i = i+1){
-      int rand1 = int(random(2,18));
-      int rand2 = int(random(2,18));
+    addStrip(walls,0,0,0,19);
+    addStrip(walls,0,0,19,0);
+    addStrip(walls,19,0,19,19);
+    addStrip(walls,0,19,19,19);
+    
+    int goal1 = int(random(16,19));
+    int goal2 = int(random(16,19));
+    
+    goals.add(new Point(goal1,goal2));
+    
+    for (int i = 1; i <= 80; i = i+1){
+      int rand1 = int(random(1,19));
+      int rand2 = int(random(1,19));
+      while ((rand1 == 1 && rand2 == 1) && (rand1 == goal1 && rand2 == goal2)){
+        rand1 = int(random(1,19));
+        rand2 = int(random(1,19));
+      }
       addStrip(walls,rand1,rand2,rand1,rand2);
     }
-    goals.add(new Point(18,18));
   }
-  else if (layoutChoice == 7){
+  else if (layoutChoice == 8){
     xy = new Point(20,20);
     walls = new ArrayList<Point>();
     goals = new ArrayList<Point>();
@@ -116,7 +144,7 @@ void loadLayout(int layoutChoice) {
     
     //Make Random Maze
   }
-  else if(layoutChoice == 8){
+  else if(layoutChoice == 9){
     xy = new Point(20,20);
     walls = new ArrayList<Point>();
     goals = new ArrayList<Point>();
