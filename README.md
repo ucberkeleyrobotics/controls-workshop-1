@@ -1,4 +1,7 @@
-# controls-workshop-1
+# Robotic Controls Workshop I
+
+[Slides available here](https://docs.google.com/presentation/d/1KAk-CsL1MiSS8Q9jD7Ha7Edlxk9EQZnEYCxkdOKXJSk/edit?usp=sharing)
+
 ## Guide to the Grid Robot
 
 Imagine that we've created a robot named "robert", who is facing east at position (0, 0). There happens to be a wall at position (4, 6).
